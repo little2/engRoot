@@ -30,7 +30,7 @@ jobs:
           # For any initial/required rsync flags
           ARGS: "-avz --delete"
           # Source directory dist/ 需要到远端服务器的文件目录 **填入自己的打包路径**
-          SOURCE: "dist/"
+          SOURCE: "/"
           # Remote host **填入自己的域名**
           REMOTE_HOST: "39.97.223.56"
           # Remote user **填入自己的用户,一般都是root用户**
