@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<link rel="icon" href="data:image/ico;base64,aWNv">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	<title>字根</title>
+
+	<!-- Bootstrap -->
+
+	<link href="https://cdn.bootcss.com/twitter-bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+	<!--
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+    -->
+	<link href="css/english.css" rel="stylesheet">
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="js/common.js"></script>
+	<script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script src="word.js"></script>
+	<!--
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+      <script src="js/bootstrap.min.js"></script>
+    -->
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+
+	<form>
+
+
+
+
+		<div class="container">
+			<div class="row">
+				<div style="margin-top:30px"></div>
+				<input type="search" id="keyword" name="keyword" ondblclick="clear_serach()"
+					onKeyDown="onKeyDown(event)" class="input-lg" style="ime-mode:disabled; ">
+				<button type="button" class="btn btn-primary" onClick='new_search()'>Search Word</button>
+				<button type="button" class="btn btn-info" onClick='search_root()'>Search Root</button>
+				<button type="button" class="btn btn-success" onClick='save()'>Save</button>
+
+
+
+				<div class='hide' id='msgbox'>
+					<div class="alert alert-dismissible" role="alert" id='alert_property'>
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+								aria-hidden="true">&times;</span></button>
+						<div id="msgtext"></div>
+					</div>
+				</div>
+
+
+
+				<div id="message_zone"></div>
+
+				<div id="search_result" class='hide'>
+
+
+					<br>
+					<h2>單字解釋 <span class="glyphicon glyphicon-volume-up" onClick='play_sound()'></span>
+						<input type="text" style="border:0px;" id="symbol" name="symbol" autocomplete="off">
+					</h2>
+					<audio id="audio_play" autoplay="autoplay" src=""></audio>
+					<textarea id="definition" name="definition" class="form-control "></textarea>
+					<br>
+					<p>Also found in:
+						<a id="search_more" target='_blank_baidu'>Baidu</a>&nbsp&nbsp
+						<a id="search_more_iciba" target='_blank_iciba'>ICIBA</a>&nbsp&nbsp
+						<a id="search_root_more" target='_blank_youda'>Youda</a>&nbsp&nbsp
+						<a id="search_root_more_youdict" target='_blank_youdict'>Youdict</a>
+						<button type="button" class="btn" onClick='jumpall()'>Jump all</button>
+					</p>
+
+
+
+
+					<br>
+					<h2>單字分解</h2>
+					<div id="root_zone"></div>
+					<input type="text" class="form-control" id="root" name="root" placeholder="字根" autocomplete="off">
+					<a href='root.html'>新增字根</a>
+
+					<br>
+
+					<h2>列根成形</h2>
+					<textarea id="memo" name="memo" class="form-control " rows="3"></textarea>
+					<br>
+
+					<h2>同义词 Synonym</h2>
+
+					<div style="margin-top:5px;"></div>
+					<input type="text" class="form-control" id="synonym" name="synonym" placeholder="同义词"
+						autocomplete="off">
+
+					<div style="margin-top:10px;"></div>
+					<div id="synonyms_zone">
+
+					</div>
+
+
+					<br>
+
+					<h2>反义词 Antonym</h2>
+					<div id="antonyms_zone"></div>
+					<input type="text" class="form-control" id="antonym" name="antonym" placeholder="反义词"
+						autocomplete="off">
+					<br>
+					<button type="button" class="btn btn-success" onClick='save()'>Save</button>
+					<button type="button" class="btn btn-danger pull-right" onClick='del()'>Del</button>
+					<br>
+					<p>⇨➠➔➨①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳♐</p>
+
+
+					<h2>字根</h2>
+					<p><a
+							href="http://root.eng.tw/2014/01/prehendprehens.html">http://root.eng.tw/2014/01/prehendprehens.html</a>
+					</p>
+					<p><a
+							href="https://books.google.com.tw/books?id=mIgmCgAAQBAJ">https://books.google.com.tw/books?id=mIgmCgAAQBAJ</a>
+					</p>
+					<p><a href="http://systw.net/word/index.php">http://systw.net/word/index.php</a></p>
+					<p><a href="http://www.morewords.com/">http://www.morewords.com/</a></p>
+
+
+
+				</div>
+
+	</form>
+
+
+	<!-- loading -->
+	<div class="modal fade" id="loading" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+		data-backdrop='static'>
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="myModalLabel">Notice</h4>
+				</div>
+				<div class="modal-body">
+					Loading....<span id="result"></span>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+
+<script>
+	let $word = new wordClass();
+
+	var strUrl = location.search;
+	var getPara, ParaVal;
+	var aryPara = [];
+
+	if (strUrl.indexOf("?") != -1) {
+		var getSearch = strUrl.split("?");
+		getPara = getSearch[1].split("&");
+		for (i = 0; i < getPara.length; i++) {
+			ParaVal = getPara[i].split("=");
+			aryPara.push(ParaVal[0]);
+			aryPara[ParaVal[0]] = ParaVal[1];
+		}
+	}
+	else {
+		strUrl = location.href;
+		getSearch = strUrl.split('/');
+		var count = getSearch.length - 1;
+		var keywordrow = getSearch[count].split('.');
+		aryPara['w'] = keywordrow[0];
+	}
+
+
+
+	if (typeof (aryPara['w']) != 'undefined') {
+		$('#keyword').val(aryPara['w']);
+		search()
+	}
+
+	function clear_serach() {
+		if (typeof (navigator.clipboard) == "undefined") {
+			document.getElementById("keyword").value = "";
+			return false;
+		}
+
+
+		navigator.clipboard.readText()
+			.then(text => {
+				var str = text.toLowerCase().trim();
+				var regExp = /^[A-Za-z]+$/;
+				if (regExp.test(str)) {
+					document.getElementById("keyword").value = str;
+					new_search();
+					//console.log('Pasted content: 1', text);
+				}
+				else {
+					document.getElementById("keyword").value = "";
+					//console.log('Pasted content: 2', text);
+				}
+			})
+			.catch(err => {
+				console.error('Failed to read clipboard contents: ', err);
+			});
+
+	}
+
+
+	function del() {
+
+		var word = $('#keyword').val();
+		var r = confirm("是否确认删除字" + word)
+		if (r == true) {
+
+			$.ajax({
+				type: 'POST', //GET or POST
+				url: "js_del.php", //請求的頁面
+				cache: false, //防止抓到快取的回應
+				data: { word }, //要傳送到頁面的參數
+				success: function (data) {
+					var msgbox = $('#msgbox').clone();
+					//console.log(msgbox.html());
+					show_message("删除成功：" + word, "alert-success")
+					search();
+				}
+			});
+		}
+	}
+
+	function save() {
+		var word = $('#keyword').val();
+		var definition = $('#definition').val();
+		var memo = $('#memo').val();
+		var root = $('#root').val();
+		var symbol = $('#symbol').val();
+		var synonym = $('#synonym').val();
+		var antonym = $('#antonym').val();
+		var analysis = $('#analysis').val();
+		start_loading();
+		$.ajax({
+			type: 'POST', //GET or POST
+			url: "js_save.php", //請求的頁面
+			cache: false, //防止抓到快取的回應
+			data: $("form").serialize(),
+			//data: { word: word, definition: definition, memo: memo, root: root, symbol: symbol, synonym, antonym, analysis }, //要傳送到頁面的參數
+			success: function (data) {
+				show_message("儲存成功：" + word, "alert-success");
+				search()
+
+			}
+		});
+	}
+
+	function find_root(keyword) {
+		location.href = 'root.html?r=' + keyword;
+	}
+
+	function find_word(keyword) {
+		location.href = 'index.html?w=' + keyword;
+	}
+
+	function jumpall() {
+		var keyword = $('#keyword').val();
+
+
+		window.open('https://www.quword.com/root/search?wd=' + keyword, 'search_root_more');
+		window.open('https://www.quword.com/ciyuan/s/' + keyword, 'search_root_more_youdict');
+
+		//window.open('http://www.cgdict.com/index.php?app=cigen&ac=word&w=' + keyword, 'search_more_cgdict');
+		window.open('https://dict.youdao.com/w/' + keyword, 'search_more_youdao');
+		window.open('http://www.iciba.com/' + keyword, 'search_more_iciba');
+		window.open('https://fanyi.baidu.com/#en/zh/' + keyword, 'search_more');
+
+
+		/*
+			$('#search_more').attr('href','https://fanyi.baidu.com/#en/zh/'+data.vocabulary.word);
+			$('#search_more_iciba').attr('href','http://www.iciba.com/'+data.vocabulary.word);
+			$('#search_root_more').attr('href','https://www.youdict.com/root/search?wd='+data.vocabulary.word);
+			$('#search_root_more_youdict').attr('href','https://www.youdict.com/ciyuan/s/'+data.vocabulary.word);
+		  */
+	}
+
+
+
+	function search_root() {
+		var keyword = $('#keyword').val();
+		location.href = 'root.html?r=' + keyword;
+	}
+
+	function new_search() {
+		//$('#message_zone').html("");
+		var keyword = $('#keyword').val();
+		keyword = keyword.replace(/[\u200B-\u200D\uFEFF]/g, '');
+		keyword = keyword.toLowerCase().trim();
+		location.href = keyword + '.html';
+		// 
+
+		//keyword = keyword.replace(/[\u200B-\u200D\uFEFF]/g, '');
+		// var re = new RegExp("\u2028|\u2029");
+		// var result = keyword.replace(re, '');
+
+		// $('#keyword').val(result);
+
+		// let row=keyword.match(/[A-Za-z]+/g);
+		// if(keyword!=row[0])
+		// {
+		// 	search();
+		// }
+		// else
+		// {
+		//	location.href = result+'.html';
+		// }
+
+
+
+	}
+
+	function search() {
+		var keyword = $('#keyword').val();
+
+		var timestamp = new Date().getTime();
+		if (!keyword) return false;
+		start_loading();
+
+		$.ajax({
+			type: 'POST', //GET or POST
+			url: "js_search.php", //請求的頁面
+			cache: false, //防止抓到快取的回應
+			data: { keyword: keyword, timestamp: timestamp }, //要傳送到頁面的參數
+			success: function (data) {
+				if (data.vocabulary.word) {
+					$word.loadWordField(data);
+				}
+				else {
+					var msg = "查無此單字 " + $('#keyword').val() + " ";
+
+					if (typeof (data.candidate) != 'undefined') {
+						msg = msg + ", 你是要找<a href='" + data.candidate + ".html'> " + data.candidate + " </a>嗎? ";
+						msg = msg + " 或是查找单字<a target='_blank_baidu' href='https://fanyi.baidu.com/#en/zh/" + $('#keyword').val() + "'> " + $('#keyword').val() + " </a>";
+					}
+					show_message(msg, "alert-warning");
+
+					$word.initWordField();
+				}
+
+				complete_loading();
+
+			}
+
+		});
+
+	}
+
+
+	function query_dic() {
+		var word = $('#keyword').val();
+		
+		new Promise((resovle, reject) => {
+			let resEng = $word.getWord(word);
+			console.log(resEng);
+			resovle(resEng);
+		}).then(resEng => {
+			if ($('#definition').val() == "") {
+				$('#definition').val(res.definition[0]);
+				$word.resizeTextAreaHeight();
+			}
+
+			if ($('#symbol').val() == "") {
+				$('#symbol').val(res.symbol);
+			}
+		})
+
+
+		
+	
+		
+	}
+
+
+	function play_sound() {
+
+		if (!$('#audio_play').attr('src')) {
+
+			var keyword = $('#keyword').val();
+			$.ajax({
+				type: 'POST', //GET or POST
+				url: "js_vocabulary_play_sound.php", //請求的頁面
+				cache: false, //防止抓到快取的回應
+				data: { keyword: keyword }, //要傳送到頁面的參數
+				success: function (data) {
+					//$('#audio_play').playbackRate=1;
+
+					$('#audio_play').attr('src', data['file']);
+					// $('#audio_play').play();
+				}
+			});
+		}
+		else {
+			$('#audio_play').load();
+		}
+	}
+
+
+
+
+	$(document).ajaxComplete(function (event, request, settings) {
+		$word.resizeTextAreaHeight()
+	});
+
+
+
+</script>
+
+</html>

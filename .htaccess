@@ -1,0 +1,7 @@
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([a-zA-Z0-9\-]*).html$ index.html?w=$1&%{QUERY_STRING} 
+RewriteRule ^([a-zA-Z0-9\-]*)$ index.html?w=$1&%{QUERY_STRING} 
+
