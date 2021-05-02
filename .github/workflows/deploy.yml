@@ -19,8 +19,13 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Checkout
-        uses: actions/checkout@2
-
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+          # checkout到你的hexo代码分支
+          ref: dev
+          # hexo需要加载内部子模块
+          submodules: true
       # Deploy
       - name: Deploy
         uses: easingthemes/ssh-deploy@v2.0.7
