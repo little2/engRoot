@@ -23,7 +23,7 @@ jobs:
        
       # Deploy
       - name: Deploy
-        uses: easingthemes/ssh-deploy@v2.0.7
+        uses: easingthemes/ssh-deploy@v2.1.1
         env:
           # Private Key secrets.DEPLOY_KEY就是刚才配置的密钥名
           SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
@@ -36,4 +36,4 @@ jobs:
           # Remote user **填入自己的用户,一般都是root用户**
           REMOTE_USER: "root"
           # Target directory 此处填写的是我博客域名下的action pacth下 **填入自己的域名路径**
-          TARGET: "/web/engRoot"
+          TARGET: "/web/engRoot/"
