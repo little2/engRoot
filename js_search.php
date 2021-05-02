@@ -89,7 +89,7 @@ if($keyword)
 
   if($row['root'])
   {
-      //若有,找出相同字根的字
+      //若有,找出相同字根的字 test123
       if($root_row=array_filter(explode(';',$row['root'])))
       {
           $sql="SELECT * FROM  `root` WHERE  0";
