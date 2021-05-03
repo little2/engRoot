@@ -28,7 +28,7 @@ jobs:
           # Private Key secrets.DEPLOY_KEY就是刚才配置的密钥名
           SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_KEY }}
           # For any initial/required rsync flags
-          ARGS: "-avz --delete"
+          ARGS: "-rltgoDzvO"
           # Source directory dist/ 需要到远端服务器的文件目录 **填入自己的打包路径**
           SOURCE: "/"
           # Remote host **填入自己的域名**
