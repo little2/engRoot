@@ -1,256 +1,258 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <link rel="icon" href="data:image/ico;base64,aWNv">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>字根</title>
 
-    <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+<head>
+	<link rel="icon" href="data:image/ico;base64,aWNv">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	<title>字根</title>
 
-    <link href="css/english.css" rel="stylesheet">
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
+	<!-- Bootstrap -->
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+
+	<link href="css/english.css" rel="stylesheet">
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-  </head>
-  <body>
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+</head>
 
-    <script src="js/common.js"></script>
-    <script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
-   <!--
+<body>
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+
+	<script src="js/common.js"></script>
+	<script src="https://cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+	<!--
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     -->
 
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
-	    <form>
-	<div class="container">
-	<div class="row">
-	<div style="margin-top:30px"></div>
-	<input type="search"  id="keyword" onKeyDown="onKeyDown(event)">
-    <button type="button" class="btn btn-primary"  onClick='search_word()'>Search Word</button>
-    <button type="button" class="btn btn-info" id="bt_search" onClick='new_search()' >Search Root</button>
-    <button type="button" class="btn btn-success"  onClick='save()'>Save</button>
-    <button type="button" class="btn btn-danger pull-right"  onClick='del_root()'>Del</button>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="js/bootstrap.min.js"></script>
+	<form>
+		<div class="container" style="margin-top:10px">
+			<div class="row">
+				<div style="margin-top:20px"></div>
+				<input type="search" id="keyword" onKeyDown="onKeyDown(event)">
+				<button type="button" class="btn btn-primary" onClick='search_word()'>Search Word</button>
+				<button type="button" class="btn btn-info" id="bt_search" onClick='new_search()'>Search Root</button>
+				<button type="button" class="btn btn-success" onClick='save()'>Save</button>
+				<button type="button" class="btn btn-danger pull-right" onClick='del_root()'>Del</button>
 
-    <div class='hide' id='msgbox'>
-		<div class="alert alert-dismissible" role="alert" id='alert_property'>
-		<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		<div id="msgtext"></div>
+				<div class='hide' id='msgbox'>
+					<div class="alert alert-dismissible" role="alert" id='alert_property'>
+						<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+								aria-hidden="true">&times;</span></button>
+						<div id="msgtext"></div>
+					</div>
+				</div>
+
+
+
+				<div id='message_zone'></div>
+
+				<div id="search_result" class='hide1'>
+
+					<br>
+					<h2>主字根</h2>
+					<input type="text" id="main_root" autocomplete="off">
+					<br>
+
+					<br>
+					<h2>相同字根</h2>
+					<input type="text" id="relative" autocomplete="off">
+					<br>
+
+					<br>
+					<h2>代表字</h2>
+					<input type="text" id="representative" autocomplete="off">
+					<br>
+
+					<br>
+					<h2>字根解釋</h2>
+					<textarea id="explain" class="form-control "></textarea>
+					<p>⇨➠➔➨①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳♐</p>
+					<br>
+
+					<h2>相關字</h2>
+
+					<br>
+					<input type="text" id="new_word">
+					<input type="text" id="new_word_def">
+					<button type="button" class="btn btn-default" id="bt_add" onClick='add()'>Add</button>
+					</br>
+					<div id="relation_word"></div>
+					</br>
+				</div>
+			</div>
 		</div>
-    </div>
+	</form>
+
+	<!-- loading -->
+	<div class="modal fade" id="loading" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+		data-backdrop='static'>
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="myModalLabel">Notice</h4>
+				</div>
+				<div class="modal-body">
+					Loading....<span id="result"></span>
+				</div>
+			</div>
+		</div>
+	</div>
 
 
+</body>
 
-    <div id='message_zone' ></div>
+<script>
+	var strUrl = location.search;
+	var getPara, ParaVal;
+	var aryPara = [];
 
-    <div id="search_result" class='hide1'>
+	if (strUrl.indexOf("?") != -1) {
+		var getSearch = strUrl.split("?");
+		getPara = getSearch[1].split("&");
+		for (i = 0; i < getPara.length; i++) {
+			ParaVal = getPara[i].split("=");
+			aryPara.push(ParaVal[0]);
+			aryPara[ParaVal[0]] = ParaVal[1];
+		}
+	}
 
-		  <br>
-		  <h2>主字根</h2>
-		  <input type="text"  id="main_root" autocomplete="off">
-		 <br>
+	if (typeof (aryPara['r']) != 'undefined') {
+		$('#keyword').val(aryPara['r']);
+		search()
+	}
 
-		  <br>
-		  <h2>相同字根</h2>
-		  <input type="text"  id="relative" autocomplete="off">
-		 <br>
+	function add() {
+		var root_word = $('#keyword').val();
+		var new_word = $('#new_word').val();
+		var new_word_def = $('#new_word_def').val();
 
-     <br>
-     <h2>代表字</h2>
-     <input type="text"  id="representative" autocomplete="off">
-    <br>
-
-		  <br>
-		  <h2>字根解釋</h2>
-		  <textarea  id="explain" class="form-control "></textarea>
-		   	  <p>⇨➠➔➨①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭⑮⑯⑰⑱⑲⑳♐</p>
-		 <br>
-
-
-
-
-		  <h2>相關字</h2>
-
-		 <br>
-		 	<input type="text"  id="new_word">
-		 	<input type="text"  id="new_word_def">
-	    	<button type="button" class="btn btn-default" id="bt_add" onClick='add()'>Add</button>
-	    	</br>
-	    	<div  id="relation_word"></div>
-	    	</br>
-    	</div>
- 	</div>
- 	</div>
- 	</form>
-
-  <!-- loading -->
-  <div class="modal fade" id="loading" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop='static'>
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title" id="myModalLabel">Notice</h4>
-        </div>
-        <div class="modal-body">
-          Loading....<span id="result"></span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-  </body>
-
-  <script>
-
-  var strUrl = location.search;
-  var getPara, ParaVal;
-  var aryPara = [];
-
-  if (strUrl.indexOf("?") != -1) {
-    var getSearch = strUrl.split("?");
-    getPara = getSearch[1].split("&");
-    for (i = 0; i < getPara.length; i++) {
-      ParaVal = getPara[i].split("=");
-      aryPara.push(ParaVal[0]);
-      aryPara[ParaVal[0]] = ParaVal[1];
-    }
-  }
-
-  if(typeof(aryPara['r'])!='undefined')
-  {
-	  $('#keyword').val(aryPara['r']);
-	  search()
-  }
-
-  function add()
-  {
-	  var root_word=$('#keyword').val();
-	  var new_word=$('#new_word').val();
-	  var new_word_def=$('#new_word_def').val();
-
-	  $.ajax({
-			type : 'POST', //GET or POST
-			url : "js_add.php", //請求的頁面
-			cache : false, //防止抓到快取的回應
-			data : {root_word:root_word,new_word:new_word,new_word_def:new_word_def}, //要傳送到頁面的參數
-			success : function(data) {
-				$('#relation_word').append('<a href="index.html?w='+$('#new_word').val()+'">'+$('#new_word').val()+'</a>&nbsp');
+		$.ajax({
+			type: 'POST', //GET or POST
+			url: "js_add.php", //請求的頁面
+			cache: false, //防止抓到快取的回應
+			data: {
+				root_word: root_word,
+				new_word: new_word,
+				new_word_def: new_word_def
+			}, //要傳送到頁面的參數
+			success: function (data) {
+				$('#relation_word').append('<a href="index.html?w=' + $('#new_word').val() + '">' + $(
+					'#new_word').val() + '</a>&nbsp');
 				$('#new_word').val("");
 				$('#new_word_def').val("");
 			}
 		});
-  }
+	}
 
-  function del_root()
-  {
-    var main_root=$('#main_root').val();
-    var r=confirm("是否确认删除字根"+main_root)
-    if (r==true)
-    {
-      $.ajax({
-  			type : 'POST', //GET or POST
-  			url : "js_del_root.php", //請求的頁面
-  			cache : false, //防止抓到快取的回應
-  			data : {main_root}, //要傳送到頁面的參數
-  			success : function(data) {
-          show_message('"删除成功："+main_root');
-  				search();
-  			}
-  		});
-    }
-  }
+	function del_root() {
+		var main_root = $('#main_root').val();
+		var r = confirm("是否确认删除字根" + main_root)
+		if (r == true) {
+			$.ajax({
+				type: 'POST', //GET or POST
+				url: "js_del_root.php", //請求的頁面
+				cache: false, //防止抓到快取的回應
+				data: {
+					main_root
+				}, //要傳送到頁面的參數
+				success: function (data) {
+					show_message('"删除成功："+main_root');
+					search();
+				}
+			});
+		}
+	}
 
-  function save()
-  {
-	  var keyword=$('#keyword').val();
-	  var main_root=$('#main_root').val();
-	  var representative=$('#representative').val();
+	function save() {
+		var keyword = $('#keyword').val();
+		var main_root = $('#main_root').val();
+		var representative = $('#representative').val();
 
-	  var explain=$('#explain').val();
-	  var relative=$('#relative').val();
-	  $('#message_zone').addClass('fadeOutback');
-    start_loading();
-	  $.ajax({
-			type : 'POST', //GET or POST
-			url : "js_save_root.php", //請求的頁面
-			cache : false, //防止抓到快取的回應
-			data : {keyword:keyword,explain:explain,relative:relative,main_root:main_root,representative:representative}, //要傳送到頁面的參數
-			success : function(data) {
-        if(data.duplicate)
-        {
-          show_message("已有重覆的字根：<a href='root.html?r="+data.duplicate+"'>"+
-            data.duplicate+"</a> "+data.relative+' '+data.explain,"alert-warning");
-        }
-        else {
-          show_message("儲存成功："+keyword,"alert-success");
-  				search();
-        }
+		var explain = $('#explain').val();
+		var relative = $('#relative').val();
+		$('#message_zone').addClass('fadeOutback');
+		start_loading();
+		$.ajax({
+			type: 'POST', //GET or POST
+			url: "js_save_root.php", //請求的頁面
+			cache: false, //防止抓到快取的回應
+			data: {
+				keyword: keyword,
+				explain: explain,
+				relative: relative,
+				main_root: main_root,
+				representative: representative
+			}, //要傳送到頁面的參數
+			success: function (data) {
+				if (data.duplicate) {
+					show_message("已有重覆的字根：<a href='root.html?r=" + data.duplicate + "'>" +
+						data.duplicate + "</a> " + data.relative + ' ' + data.explain, "alert-warning");
+				} else {
+					show_message("儲存成功：" + keyword, "alert-success");
+					search();
+				}
 
-        complete_loading();
+				complete_loading();
 
 			}
 		});
-  }
+	}
 
 
-  function search_word()
-  {
-	  var keyword=$('#keyword').val();
-	  location.href=keyword+'.html';
-  }
+	function search_word() {
+		var keyword = $('#keyword').val();
+		location.href = keyword + '.html';
+	}
 
-  function new_search()
-  {
-    $('#message_zone').html("");
-    search();
-  }
+	function new_search() {
+		$('#message_zone').html("");
+		search();
+	}
 
-  function search()
-  {
-    $('#message_zone').removeClass('fadeOutback');
-	  var keyword=$('#keyword').val();
-	  if(!keyword) return false;
-    start_loading();
-	  $.ajax({
-			type : 'POST', //GET or POST
-			url : "js_search_root.php", //請求的頁面
-			cache : false, //防止抓到快取的回應
-			data : {keyword:keyword}, //要傳送到頁面的參數
-			success : function(data) {
-				if(data.root.root)
-				{
+	function search() {
+		$('#message_zone').removeClass('fadeOutback');
+		var keyword = $('#keyword').val();
+		if (!keyword) return false;
+		start_loading();
+		$.ajax({
+			type: 'POST', //GET or POST
+			url: "js_search_root.php", //請求的頁面
+			cache: false, //防止抓到快取的回應
+			data: {
+				keyword: keyword
+			}, //要傳送到頁面的參數
+			success: function (data) {
+				if (data.root.root) {
 					$('#main_root').val(data.root.root);
-  				$('#representative').val(data.root.representative);
+					$('#representative').val(data.root.representative);
 					$('#explain').val(data.root.explain);
 					$('#relative').val(data.root.relative);
 
 					$('#relation_word').empty();
-					var i =1;
-					for(var key in data.relation)
-					{
+					var i = 1;
+					for (var key in data.relation) {
 						i++;
 						//if(!(i%10))
 						$('#relation_word').append('<br>');
-						$('#relation_word').append('<a href="index.html?w='+data.relation[key]+'">'+data.relation_definition[key]+'</a>&nbsp');
+						$('#relation_word').append('<a href="index.html?w=' + data.relation[key] + '">' + data
+							.relation_definition[key] + '</a>&nbsp');
 					}
-	  				//word
-				}
-				else
-				{
-					var msg="查無此字根"+$('#keyword').val();
-					if(typeof(data.candidate)!='undefined')
-					{
-						msg=msg+", 你是要找 <a href='root.html?r="+	data.candidate + "'>"+data.candidate+"</a> 嗎?";
+					//word
+				} else {
+					var msg = "查無此字根" + $('#keyword').val();
+					if (typeof (data.candidate) != 'undefined') {
+						msg = msg + ", 你是要找 <a href='root.html?r=" + data.candidate + "'>" + data.candidate +
+							"</a> 嗎?";
 					}
-          show_message(msg,"alert-warning");
+					show_message(msg, "alert-warning");
 
 					$("#representative").val("");
 					$("#explain").val("");
@@ -258,15 +260,11 @@
 					$("#main_root").val("");
 					$('#relation_word').html("");
 				}
-        complete_loading();
+				complete_loading();
 
 			}
 		});
-  }
-
-
-
-
-  </script>
+	}
+</script>
 
 </html>

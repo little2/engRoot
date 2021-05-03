@@ -1,6 +1,7 @@
 <?php
 header("Content-type: application/json", true);
 include_once ('class_translate.php');
+$ts = new Translate();
 include_once ('config_common.php');
 $errmsg='';
 
@@ -17,11 +18,11 @@ if($_is_Download && filesize($file)<250)
 
 if(!$_is_Download)
 {       
-    $outputStrArr=Translate::exec($keyword);   
+    $outputStrArr=$ts::exec($keyword);   
     $mp3_url= $outputStrArr['content']['ph_am_mp3'];
 
     $mp3_url="https://dict.youdao.com/dictvoice?audio=".$keyword."&type=2";
-    Translate::downloadMP3($keyword,$mp3_url);
+    $ts::downloadMP3($keyword,$mp3_url);
     $data['outputStrArr']=$outputStrArr;
 }
 
