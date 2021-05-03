@@ -6,7 +6,16 @@ include_once ('config_common.php');
 $errmsg='';
 
 $keyword=strtolower(trim($_POST['keyword']));
-$file='vocabulary/'.$keyword.'.mp3';
+$vocabulary_path='vocabulary';
+$file=$vocabulary_path.'/'.$keyword.'.mp3';
+
+
+if(!is_readable($vocabulary_path))
+{
+    is_file($vocabulary_path) or mkdir($vocabulary_path,0700);
+}
+
+
 @mkdir('vocabulary');
 $_is_Download=file_exists($file);
 

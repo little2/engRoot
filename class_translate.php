@@ -246,12 +246,20 @@ class Translate {
     }
 
     function downloadMP3($keyword,$mp3url){
-      $file='vocabulary/'.$keyword.'.mp3';
+
+      $vocabulary_path='vocabulary';
+      $file=$vocabulary_path.'/'.$keyword.'.mp3';
+      
+      
+      if(!is_readable($vocabulary_path))
+      {
+          is_file($vocabulary_path) or mkdir($vocabulary_path,0700);
+      }
+     
       $_is_Download=file_exists($file);
 
       if(!$_is_Download)
-      {
-        @mkdir('vocabulary');
+      {       
         $strResponse=self::curlRequest($mp3url);
         file_put_contents($file, $strResponse);
       }
