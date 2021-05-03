@@ -18,7 +18,7 @@ if($_is_Download && filesize($file)<250)
 
 if(!$_is_Download)
 {       
-    $outputStrArr=$ts::exec($keyword);   
+    $outputStrArr=$ts::getTianTranslate($keyword);   
     $mp3_url= $outputStrArr['content']['ph_am_mp3'];
 
     $mp3_url="https://dict.youdao.com/dictvoice?audio=".$keyword."&type=2";
