@@ -1,1 +1,0 @@
-{"timestamp":1591633116658,"status":400,"error":"Bad Request","msg":"either 'audio' or 'word'  must be specified","path":"/dictvoice"}
