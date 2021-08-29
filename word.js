@@ -221,7 +221,7 @@ class wordClass {
                 resovle(resEng);
             }).then(resEng => {
                 if ($('#definition').val() == "") {
-                    $('#definition').val(resEng.definition[0]);                   
+                    $('#definition').val(resEng.definition);                   
                 }
     
                 if ($('#symbol').val() == "") {
